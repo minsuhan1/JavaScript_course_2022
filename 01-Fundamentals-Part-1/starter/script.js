@@ -7,7 +7,7 @@ let firstName = "Matilda";
 console.log(firstName);
 
 let PI = 3.1415;
-*/
+
 
 let javascriptIsFun = true;
 console.log(javascriptIsFun);
@@ -29,3 +29,14 @@ console.log(year);
 console.log(typeof year);
 
 console.log(typeof null); // null is a primitive value, not an object. (js bug)
+*/
+
+let age = 30;
+age = 31;
+
+const birthYear = 1991;
+// birthYear = 1990;
+// const job;
+
+var job = "programmer";
+job = "teacher";
