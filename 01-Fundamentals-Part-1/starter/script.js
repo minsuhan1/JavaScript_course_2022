@@ -152,7 +152,7 @@ console.log(String(23), 23);
 console.log("I am " + 23 + " years old");
 console.log("23" - "10" - 3);
 console.log("10" - "1" + 2 + "3"); // 113
-*/
+
 
 // 5 falsy values: 0, '', undefined, null, NaN
 console.log(Boolean(0));
@@ -174,3 +174,18 @@ if (height) {
 } else {
   console.log("height is undefined");
 }
+*/
+
+const age = "18";
+if (age === 18) console.log("You just became an adult (strict)");
+if (age == 18) console.log("You just became an adult (loose)");
+
+const favourite = Number(prompt("What's your favorite number?"));
+console.log(favourite);
+console.log(typeof favourite);
+
+if (favourite === 23) {
+  console.log("Cool! 23 is an amazing number");
+}
+
+if (favourite !== 23) console.log("Why not 23?");
