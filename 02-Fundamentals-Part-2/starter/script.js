@@ -188,7 +188,7 @@ const jonas = {
 console.log(jonas.calcAge());
 console.log(jonas.age);
 console.log(jonas.getSummary());
-*/
+
 
 const mark = {
   fullName: "Mark Miller",
@@ -221,4 +221,38 @@ if (mark.bmi > john.bmi) {
   console.log(
     `${john.fullName}'s BMI (${john.bmi}) is higher than ${mark.fullName}'s BMI (${mark.bmi})`
   );
+}
+*/
+
+const jonas = [
+  "Jonas",
+  "Schmedtmann",
+  2037 - 1991,
+  "teacher",
+  ["Michael", "Peter", "Steven"],
+  true,
+];
+
+const types = [];
+
+for (let i = 0; i < jonas.length; i++) {
+  console.log(jonas[i], typeof jonas[i]);
+
+  // types[i] = typeof jonas[i];
+  types.push(typeof jonas[i]);
+}
+
+const years = [1991, 2997, 1969, 2020];
+for (let i = 0; i < jonas.length; i++) {
+  if (typeof jonas[i] !== "string") continue;
+
+  console.log(jonas[i], typeof jonas[i]);
+}
+
+let dice = Math.trunc(Math.random() * 6) + 1;
+
+while (dice !== 6) {
+  console.log(`you rolled a ${dice}`);
+  dice = Math.trunc(Math.random() * 6) + 1;
+  if (dice === 6) console.log("Loop is about to end...");
 }
