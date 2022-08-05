@@ -109,7 +109,6 @@ matilda.calcAge();
 
 const f = jonas.calcAge;
 f();
-*/
 
 // var firstName = 'Matilda';
 
@@ -122,13 +121,13 @@ const jonas = {
     // Solution 1
     // const self = this;
     // const isMillenial = function () {
-    //   console.log(self);
-    //   console.log(self.year >= 1981 && self.year <= 1996);
-    // };
-
-    // Solution 2
-    const isMillenial = () => {
-      console.log(this);
+      //   console.log(self);
+      //   console.log(self.year >= 1981 && self.year <= 1996);
+      // };
+      
+      // Solution 2
+      const isMillenial = () => {
+        console.log(this);
       console.log(this.year >= 1981 && this.year <= 1996);
     };
     isMillenial();
@@ -154,3 +153,40 @@ var addArrow = (a, b) => {
   return a + b;
 };
 addArrow(2, 5, 8);
+
+*/
+
+// Primitive types
+let lastName = 'Williams';
+let oldLastName = lastName;
+lastName = 'Davies';
+console.log(lastName, oldLastName);
+
+// Reference types
+const Jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+};
+
+const marriedJessica = Jessica;
+marriedJessica.lastName = 'Davies';
+console.log('Before marriage', Jessica);
+console.log('After marriage', marriedJessica);
+
+// Copying objects
+const jessica2 = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'Bob'],
+};
+
+const jessicaCopy = Object.assign({}, jessica2); // shallow copy
+jessicaCopy.lastName = 'Davies';
+
+console.log('Before marriage', jessica2);
+console.log('After marriage', jessicaCopy);
+
+jessicaCopy.family.push('Mary');
+jessicaCopy.family.push('John');
