@@ -52,6 +52,7 @@ const restaurant = {
   },
 };
 
+/*
 const rest1 = {
   name: 'Capri',
   numGuests: 0,
