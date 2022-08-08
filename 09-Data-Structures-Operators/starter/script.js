@@ -54,6 +54,8 @@ const restaurant = {
   },
 };
 
+/*
+// Looping Objects: Object Keys, Values, and Entries
 // Property NAMES
 const properties = Object.keys(openingHours);
 console.log(properties);
