@@ -54,6 +54,17 @@ const restaurant = {
   },
 };
 
+for (const flight of flights.split('+')) {
+  const [type, from, to, time] = flight.split(';');
+  // console.log(type, from, to, time);
+  const output = `${type.toLowerCase().includes('delayed') ? '🔴' : ''}${type
+    .split('_')
+    .join(' ')} from ${from.slice(0, 3).toUpperCase()} to ${to
+    .slice(0, 3)
+    .toUpperCase()} (${time.replace(':', 'h')})`;
+  console.log(output.padStart(50, ' '));
+}
+
 /*
 ////////////////////////////////////////
 // Working with Strings
