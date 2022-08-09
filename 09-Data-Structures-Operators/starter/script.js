@@ -54,6 +54,9 @@ const restaurant = {
   },
 };
 
+/*
+////////////////////////////////////////
+// Working with Strings
 // Split and join
 console.log('a+very+nice+string'.split('+'));
 const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
