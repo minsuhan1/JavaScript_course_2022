@@ -54,6 +54,40 @@ const restaurant = {
   },
 };
 
+const airLine = 'TAP Air Portugal';
+const plane = 'A320';
+console.log(airLine.length);
+console.log('B737'.length);
+
+console.log(airLine.indexOf('r'));
+console.log(airLine.lastIndexOf('r'));
+console.log(airLine.indexOf('Portugal'));
+
+console.log(airLine.slice(4));
+console.log(airLine.slice(4, 7));
+
+console.log(airLine.slice(0, airLine.indexOf(' ')));
+console.log(airLine.slice(airLine.lastIndexOf(' ') + 1));
+
+console.log(airLine.slice(-2));
+console.log(airLine.slice(1, -1));
+
+const checkMiddleSeat = function (seat) {
+  // B and E are middle seats
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'E') console.log('You got the middle seat');
+  else console.log('You got lucky');
+};
+
+checkMiddleSeat('11B');
+checkMiddleSeat('23C');
+checkMiddleSeat('3E');
+
+// string은 원시타입인데 어떻게 메소드를 갖는가
+// 메소드를 호출할때 원시타입 string이 객체타입으로 boxing된다
+// 메소드 호출이 끝나면 다시 원시 타입으로 변환한다.
+console.log(new String('Jonas'));
+
 /*
 ////////////////////////////////////////
 // Map: Iteration
