@@ -103,7 +103,6 @@ const greetArr = greeting => name => {
 
 greetArr('Hello')('Jonas');
 
-*/
 
 const lufthansa = {
   airline: 'Lufthansa',
@@ -168,15 +167,15 @@ bookEW23('Martha Cooper');
 lufthansa.planes = 300;
 lufthansa.buyPlane = function () {
   console.log(this);
-
+  
   this.planes++;
   console.log(this.planes);
 };
 // lufthansa.buyPlane();
 
 document
-  .querySelector('.buy')
-  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+.querySelector('.buy')
+.addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
 
 // Partial application
 const addTax = (rate, value) => value + value * rate;
@@ -194,3 +193,28 @@ const addTaxRate = function (rate) {
 };
 const addVAT2 = addTaxRate(0.23);
 console.log(addVAT2(100));
+
+*/
+
+const runOnce = function () {
+  console.log('This will never run again');
+};
+
+runOnce();
+
+// IIFE
+(function () {
+  console.log('This will never run again');
+  const isPrivate = 23;
+})();
+
+// console.log(isPrivate);
+
+(() => console.log('This will ALSO never run again'))();
+
+{
+  const isPrivate = 23;
+  var notPrivate = 23;
+}
+// console.log(isPrivate);
+console.log(notPrivate);
