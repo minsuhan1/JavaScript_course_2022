@@ -194,7 +194,6 @@ const addTaxRate = function (rate) {
 const addVAT2 = addTaxRate(0.23);
 console.log(addVAT2(100));
 
-*/
 
 const runOnce = function () {
   console.log('This will never run again');
@@ -218,3 +217,23 @@ runOnce();
 }
 // console.log(isPrivate);
 console.log(notPrivate);
+
+*/
+
+// Closures
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = secureBooking();
+
+booker();
+booker();
+booker();
+
+console.dir(booker);
