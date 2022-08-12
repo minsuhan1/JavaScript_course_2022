@@ -179,6 +179,20 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movement
+    currentAccount.movements.push(amount);
+
+    // update UI
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
 
@@ -325,6 +339,7 @@ console.log(max);
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
+/*
 const eurToUsd = 1.1;
 
 // PIPELINE
@@ -346,3 +361,15 @@ console.log(accounts);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 
 console.log(account);
+*/
+
+// EQUALITY
+console.log(movements.includes(-130));
+
+// CONDITION
+console.log(movements.some(mov => mov === -130));
+
+const anyDeposis = movements.some(mov => mov > 0);
+
+// EVERY
+console.log(account4.movements.every(mov => mov > 0));
