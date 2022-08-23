@@ -334,7 +334,6 @@ labelBalance.addEventListener('click', function () {
   });
 });
 
-*/
 
 // 287,460,000,000
 const diameter = 287_460_000_000;
@@ -348,3 +347,31 @@ const transferFee2 = 1_500;
 
 console.log(Number('230_000')); // NaN
 console.log(parseInt('230_000')); // NaN
+
+*/
+
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+
+console.log(234854252545252524525254n);
+console.log(BigInt(2342342));
+
+// Operations
+console.log(10000n + 10000n);
+console.log(22523842934029340920940234n * 2342242n);
+
+const huge = 23423949023040923402n;
+const num = 23;
+console.log(huge * BigInt(num));
+
+// Exceptions
+console.log(20n > 15);
+console.log(20n === 20);
+console.log(typeof 20n);
+console.log(20n == '20');
+
+console.log(huge + ' is really big');
+
+// Divisions
+console.log(10n / 3n);
+console.log(10 / 3);
