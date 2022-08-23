@@ -286,7 +286,6 @@ console.log(Number.isInteger(23));
 console.log(Number.isInteger(23.0)); // true
 console.log(Number.isInteger(23 / 0));
 
-*/
 
 console.log(Math.sqrt(25));
 console.log(25 ** (1 / 2));
@@ -321,3 +320,17 @@ console.log((2.7).toFixed(0));
 console.log((2.7).toFixed(3));
 console.log((2.345).toFixed(2));
 console.log(+(2.345).toFixed(2));
+
+*/
+
+console.log(5 % 2);
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(23));
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
