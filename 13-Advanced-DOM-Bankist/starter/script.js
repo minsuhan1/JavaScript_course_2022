@@ -160,21 +160,23 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 // const observer = new IntersectionObserver(obsCallback, obsOptions);
 // observer.observe(section1);
 
-const header = document.querySelector('.header');
-const navHeight = nav.getBoundingClientRect().height;
+const header = document.querySelector('.header'); // header 섹션
+const navHeight = nav.getBoundingClientRect().height; // navigation bar 높이
 
 const stickyNav = function (entries) {
   const [entry] = entries;
   console.log(entry);
 
+  // 뷰포트에서 header 섹션이 사라지는(isIntersecting: false) 시점에 네비게이션 바 요소에 sticky 클래스를 추가
   if (!entry.isIntersecting) nav.classList.add('sticky');
+  // 다시 header 섹션이 보이는(isIntersecting: true) 시점에는 고정을 해제한다.
   else nav.classList.remove('sticky');
 };
 
 const headerObserver = new IntersectionObserver(stickyNav, {
   root: null, // entire viewport
   threshold: 0, // root의 0% 만큼 header가 보이거나(isIntersecting: true) 사라지면(isIntersecting: false) callback function을 실행
-  rootMargin: `-${navHeight}px`,
+  rootMargin: `-${navHeight}px`, // 뷰포트에서 네비게이션 바 높이만큼 보이거나 남긴 시점을 콜백 메서드 호출시점으로 설정함
 });
 headerObserver.observe(header);
 
