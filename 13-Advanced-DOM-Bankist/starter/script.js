@@ -201,6 +201,11 @@ allSections.forEach(function (section) {
 });
 
 // Lazy loading images
+// 1. data-src 속성을 갖는 이미지 요소들(imgTargets)을 선택한 다음, 각각을 observe하도록 만든다.
+// 2. imgObserver의 콜백 함수 loadImg는 이미지 요소가 뷰포트와 rootMargin 만큼 교차한 시점에 타겟 요소의 src 값을 data-src 값으로 대체한다.
+// 3. 원본 이미지를 로드하고 lazy-img 클래스를 요소에서 제거하여 블러 효과를 없앤다. 이때 원본 이미지가 로드되기 전에 블러 효과가 제거되면 보기 좋지 않으므로 load 이벤트 리스너를 추가하여 원본 이미지 로드가 완료되었을 때 블러 효과를 제거하도록 하였다.
+// 4. 원본 이미지가 로드된 경우 해당 요소는 더 이상 감지하지 않는다 (unobserve)
+
 const imgTargets = document.querySelectorAll('img[data-src]');
 
 const loadImg = function (entries, observer) {
