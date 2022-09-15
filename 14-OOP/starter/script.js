@@ -48,5 +48,5 @@ console.log(Person.prototype.isPrototypeOf(Person));
 Person.prototype.species = 'Homo Sapiens';
 console.log(jonas.species, matilda.species);
 
-console.log(jonas.hasOwnproperty('firstName'));
-console.log(jonas.hasOwnproperty('species'));
+console.log(jonas.hasOwnProperty('firstName'));
+console.log(jonas.hasOwnProperty('species'));
