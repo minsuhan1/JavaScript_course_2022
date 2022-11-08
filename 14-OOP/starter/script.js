@@ -1,6 +1,5 @@
 'use strict';
 
-/*
 // Constructor Functions and the new Operator
 const Person = function (firstName, birthYear) {
   // Instance properties
@@ -26,6 +25,15 @@ const jack = new Person('Jack', 1975);
 console.log(matilda, jack);
 
 console.log(jonas instanceof Person);
+
+// Static methods
+Person.hey = function () {
+  console.log('Hey there');
+  console.log(this);
+};
+
+Person.hey();
+// jonas.hey(); // not inherited
 
 // Prototypes
 console.log(Person.prototype);
@@ -73,8 +81,6 @@ console.log(arr.unique());
 const h1 = document.querySelector('h1');
 console.dir(x => x + 1);
 
-*/
-
 // class expression
 // const PersonCl = class {}
 
@@ -85,6 +91,7 @@ class PersonCl {
     this.birthYear = birthYear;
   }
 
+  // Instance methods
   // Methods will be added to .prototype property
   calcAge() {
     console.log(2037 - this.birthYear);
@@ -109,6 +116,12 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+
+  // static methods
+  static hey() {
+    console.log('Hey there');
+    console.log(this);
+  }
 }
 
 const jessica = new PersonCl('Jessica Davies', 1996);
@@ -128,6 +141,9 @@ jessica.greet();
 // 3. Classes are executed in strict mode
 
 const walter = new PersonCl('Walter White', 1965);
+
+PersonCl.hey();
+
 const account = {
   owner: 'Jonas',
   movements: [200, 520, 120, 300],
@@ -144,3 +160,26 @@ const account = {
 console.log(account.latest);
 account.latest = 50;
 console.log(account.movements);
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+steven.calcAge();
+
+console.log(steven.__proto__ === PersonProto);
+
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah', 1979);
+sarah.calcAge();
