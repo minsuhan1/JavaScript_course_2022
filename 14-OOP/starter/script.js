@@ -188,7 +188,7 @@ sarah.calcAge();
 
 /////////////////////////////////////
 // Inheritance Between "Classes": Constructor Functions
-
+/*
 const Person = function (firstName, birthYear) {
   this.firstName = firstName;
   this.birthYear = birthYear;
@@ -233,3 +233,70 @@ Student.prototype.constructor = Student;
 // Student.prototype.constructor === Person
 // 따라서 이것을 Student에 연결해주어야 상속관계 설정이 완료된다.
 console.dir(Student.prototype.constructor);
+
+*/
+
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Instance methods
+  // Methods will be added to .prototype property
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  // Set a property that already exists
+  // setter, getter를 자주 사용하지는 않지만 사용자에게 클래스 내부의 속성을 간접접근시키거나 조건에 맞는 속성값만 저장하도록 할 때 주로 사용한다.
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  // static methods
+  static hey() {
+    console.log('Hey there');
+    console.log(this);
+  }
+}
+
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    // Always needs to happen first!
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+
+  calcAge() {
+    console.log(
+      `I'm ${
+        2037 - this.birthYear
+      } years old, but as a student I feel more like ${
+        2037 - this.birthYear + 10
+      }`
+    );
+  }
+}
+
+const martha = new StudentCl('Martha Jones', 2012, 'CS');
+martha.introduce();
+martha.calcAge();
