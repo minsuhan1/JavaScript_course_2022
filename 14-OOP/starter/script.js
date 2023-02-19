@@ -199,12 +199,18 @@ Person.prototype.calcAge = function () {
 };
 
 const Student = function (firstName, birthYear, course) {
+  // this: new 키워드로 생성된 빈 Student 객체
+  // Person(firstName, birthYear)이라고 쓰면 regular function call임
+  // regular function call에서 this는 undefined이므로 에러 발생
+  // call 메서드에 this(빈 Student 객체)를 전달하여 호출해야 함
   Person.call(this, firstName, birthYear);
   this.course = course;
 };
 
 // Linking prototypes
 Student.prototype = Object.create(Person.prototype);
+
+// Student.prototype = Person.prototype; (x)
 
 Student.prototype.introduce = function () {
   console.log(`My name is ${this.firstName} and I study ${this.course}`);
@@ -223,4 +229,7 @@ console.log(mike instanceof Person);
 console.log(mike instanceof Object);
 
 Student.prototype.constructor = Student;
+// Object.create(Person.prototype);으로 생성 및 연결한 Student.prototype은 constructor로 Person을 가리키고 있다.
+// Student.prototype.constructor === Person
+// 따라서 이것을 Student에 연결해주어야 상속관계 설정이 완료된다.
 console.dir(Student.prototype.constructor);
