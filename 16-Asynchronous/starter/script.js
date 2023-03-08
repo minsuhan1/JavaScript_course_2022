@@ -193,9 +193,9 @@ const getCountryData = function (country) {
     });
 };
 
-btn.addEventListener('click', function () {
-  getCountryData('portugal');
-});
+// btn.addEventListener('click', function () {
+//   getCountryData('portugal');
+// });
 
 /*
 getCountryData('australia');
@@ -216,6 +216,8 @@ Promise.resolve('Resolved promise 2').then(res => {
 
 console.log('Test end');
 */
+
+/*
 
 // Producing promise
 const lotteryPromise = new Promise(function (resolve, reject) {
@@ -270,5 +272,56 @@ wait(2)
 //   }, 1000);
 // }, 1000);
 
-Promise.resolve('abc').then(x => console.log(x));
-Promise.reject(new Error('Problem!')).catch(x => console.error(x));
+// Promise.resolve('abc').then(x => console.log(x));
+// Promise.reject(new Error('Problem!')).catch(x => console.error(x));
+*/
+
+const getPosition = function () {
+  return new Promise((resolve, reject) => {
+    // navigator.geolocation.getCurrentPosition(
+    //   pos => resolve(pos),
+    //   err => reject(err)
+    // );
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+// getPosition().then(pos => console.log(pos));
+
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      console.log(pos.coords);
+      const { latitude: lat, longitude: lng } = pos.coords;
+
+      return fetch(
+        `https://geocode.xyz/${lat},${lng}?geoit=json&auth=314792274463460966848x44345`
+      );
+    })
+    .then(response => {
+      if (response.status == 403) throw new Error(`Too many requests (403)`);
+      return response.json();
+    })
+    .then(data => {
+      console.log(`You are in ${data.city}, ${data.country}`);
+
+      // getJSON은 프로미스를 반환한다
+      // 다음 then메서드에서 getJSON 프로미스의 결과를 받아서 처리할 수 있게 프로미스를 return해야 한다.
+      return getJSON(
+        `https://restcountries.com/v2/name/${data.country}`,
+        'Country not found'
+      );
+    })
+    .then(data => {
+      renderCountry(data[0]);
+    })
+    .catch(err => {
+      console.error(err);
+      renderError(`Something went wrong! ⛔ ${err.message}`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
+};
+
+btn.addEventListener('click', whereAmI);
