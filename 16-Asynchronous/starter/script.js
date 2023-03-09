@@ -25,7 +25,7 @@ const renderCountry = function (data, className = '') {
 
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
-  // countriesContainer.style.opacity = 1;
+  countriesContainer.style.opacity = 1;
 };
 ///////////////////////////////////////
 /*
@@ -342,23 +342,33 @@ const whereAmI = async function () {
   // async, await는 프로미스의 then 메서드의 syntactic sugar임
 
   // Geolocation
-  const pos = await getPosition();
-  const { latitude: lat, longitude: lng } = pos.coords;
+  try {
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
 
-  // Reverse geocoding
-  const resGeo = await fetch(
-    `https://geocode.xyz/${lat},${lng}?geoit=json& auth=314792274463460966848x44345`
-  );
-  const dataGeo = await resGeo.json();
+    // Reverse geocoding
+    const resGeo = await fetch(
+      `https://geocode.xyz/${lat},${lng}?geoit=json&auth=314792274463460966848x44345`
+    );
+    if (!resGeo.ok) throw new Error('Problem getting location data');
 
-  // Country data
-  const res = await fetch(
-    `https://restcountries.com/v2/name/${dataGeo.country}`
-  );
-  const data = await res.json(); // json() 메서드는 프로미스를 반환
-  renderCountry(data[0]);
+    const dataGeo = await resGeo.json();
+
+    // Country data
+    const res = await fetch(
+      `https://restcountries.com/v2/name/${dataGeo.country}`
+    );
+    if (!res.ok) throw new Error('Problem getting country');
+    const data = await res.json(); // json() 메서드는 프로미스를 반환
+    renderCountry(data[0]);
+  } catch (err) {
+    console.error(err);
+    renderError(`${err.message}`);
+  }
 };
 
 // console.log('FIRST');가 먼저 실행된다
+whereAmI();
+whereAmI();
 whereAmI();
 console.log('FIRST');
