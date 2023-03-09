@@ -20,7 +20,7 @@ const renderCountry = function (data, className = '') {
   `;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  // countriesContainer.style.opacity = 1;
+  countriesContainer.style.opacity = 1;
 };
 
 const renderError = function (msg) {
@@ -276,6 +276,7 @@ wait(2)
 // Promise.reject(new Error('Problem!')).catch(x => console.error(x));
 */
 
+/*
 const getPosition = function () {
   return new Promise((resolve, reject) => {
     // navigator.geolocation.getCurrentPosition(
@@ -325,3 +326,39 @@ const whereAmI = function () {
 };
 
 btn.addEventListener('click', whereAmI);
+*/
+
+const getPosition = function () {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+// async 함수는 background에서 비동기적으로 동작함
+// 하지만 내부에서는 await 키워드를 붙여 background 작업들이 동기적으로 동작하게 할 수 있음
+const whereAmI = async function () {
+  // 비동기 작업이 완료될 때까지 기다렸다가 완료되면 반환된 프로미스를 저장
+  // 더 이상 콜백 함수나 then을 쓰지 않고도 프로미스의 결과를 쉽게 저장할 수 있다.
+  // async, await는 프로미스의 then 메서드의 syntactic sugar임
+
+  // Geolocation
+  const pos = await getPosition();
+  const { latitude: lat, longitude: lng } = pos.coords;
+
+  // Reverse geocoding
+  const resGeo = await fetch(
+    `https://geocode.xyz/${lat},${lng}?geoit=json& auth=314792274463460966848x44345`
+  );
+  const dataGeo = await resGeo.json();
+
+  // Country data
+  const res = await fetch(
+    `https://restcountries.com/v2/name/${dataGeo.country}`
+  );
+  const data = await res.json(); // json() 메서드는 프로미스를 반환
+  renderCountry(data[0]);
+};
+
+// console.log('FIRST');가 먼저 실행된다
+whereAmI();
+console.log('FIRST');
