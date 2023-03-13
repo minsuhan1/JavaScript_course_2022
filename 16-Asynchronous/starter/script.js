@@ -328,6 +328,7 @@ const whereAmI = function () {
 btn.addEventListener('click', whereAmI);
 */
 
+/*
 const getPosition = function () {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -415,3 +416,59 @@ const get3Countries = async function (c1, c2, c3) {
   }
 };
 get3Countries('portugal', 'canada', 'tanzania');
+*/
+
+// Promise.race
+// fulfilled, reject 상관 없이 먼저 settled 상태가 된 프로미스를 리턴
+(async function () {
+  const res = await Promise.race([
+    getJSON(`https://restcountries.com/v2/name/italy`),
+    getJSON(`https://restcountries.com/v2/name/egypt`),
+    getJSON(`https://restcountries.com/v2/name/mexico`),
+  ]);
+
+  console.log(res[0]);
+})();
+
+const timeout = function (s) {
+  return new Promise(function (_, reject) {
+    setTimeout(() => {
+      reject(new Error('Request too long!'));
+    }, s * 1000);
+  });
+};
+
+Promise.race([
+  getJSON(`https://restcountries.com/v2/name/tanzania`),
+  timeout(5),
+])
+  .then(res => console.log(res[0]))
+  .catch(err => console.error(err));
+
+// Promise.allSettled
+// Promise.all과 비슷하나 reject된 프로미스가 있더라도 전체를 reject하지 않고 배열에 결과를 담아서 리턴함
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+])
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+Promise.all([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+])
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+// Promise.any (ES2021)
+// Promise.race와 비슷하나 가장 먼저 fulfilled된 프로미스 결과를 리턴, rejected 프로미스는 무시됨
+Promise.any([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+])
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
