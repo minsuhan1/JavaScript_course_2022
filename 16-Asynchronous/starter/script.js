@@ -395,3 +395,23 @@ console.log('1: Will get location');
   }
   console.log('3: Finished getting location');
 })();
+
+// 비동기 작업들을 병렬적(앞의 작업에 의존하지 않고 동시에 실행함)으로 처리하고 싶을 때 Promise.all combinator를 사용한다.
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    // Network 탭에서 확인해보면 동시에 3개의 비동기 작업을 실행한다.
+    // parameter: 멀티로 실행할 비동기 작업 배열
+    // return value: 각각의 작업 결과를 담은 배열
+    // 여러 개의 비동기 작업 중 하나가 reject되면 전체를 reject함
+    const data = await Promise.all([
+      getJSON(`https://restcountries.com/v2/name/${c1}`),
+      getJSON(`https://restcountries.com/v2/name/${c2}`),
+      getJSON(`https://restcountries.com/v2/name/${c3}`),
+    ]);
+
+    console.log(data.map(d => d[0].capital));
+  } catch (err) {
+    console.error(err);
+  }
+};
+get3Countries('portugal', 'canada', 'tanzania');
