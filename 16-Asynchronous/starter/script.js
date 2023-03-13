@@ -361,14 +361,37 @@ const whereAmI = async function () {
     if (!res.ok) throw new Error('Problem getting country');
     const data = await res.json(); // json() 메서드는 프로미스를 반환
     renderCountry(data[0]);
+
+    return `You are in ${dataGeo.city}, ${dataGeo.country}`;
   } catch (err) {
     console.error(err);
     renderError(`${err.message}`);
+
+    // Reject promise returned from async function
+    throw err;
   }
 };
 
+console.log('1: Will get location');
 // console.log('FIRST');가 먼저 실행된다
-whereAmI();
-whereAmI();
-whereAmI();
-console.log('FIRST');
+// const city = whereAmI();
+// console.log(city);
+
+// whereAmI()
+//   .then(city => console.log(`2: ${city}`))
+//   .catch(err => console.log(`2: ${err.message}`))
+//   .finally(() => {
+//     console.log('3: Finished getting location');
+//   });
+
+// await 키워드는 async 함수 내부에서만 사용할 수 있어서 함수 밖에서 await를 사용하여 결과값을 리턴받을 수는 없다
+// 대신 즉시 실행 함수(IIFE)를 사용하여 async/await 비동기 처리를 바로 사용함으로써 해결할 수 있다
+(async function () {
+  try {
+    const city = await whereAmI();
+    console.log(`2: ${city}`);
+  } catch (err) {
+    console.error(`2: ${err.message}`);
+  }
+  console.log('3: Finished getting location');
+})();
