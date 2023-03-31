@@ -26,7 +26,7 @@ export default class View {
     // 업데이트될 DOM과 현재 DOM을 비교하여 다른 것만 새로 렌더링한다.
     newElements.forEach((newEl, i) => {
       const curEl = curElements[i];
-      console.log(curEl, newEl.isEqualNode(curEl));
+      // console.log(curEl, newEl.isEqualNode(curEl));
 
       // Updates changed TEXT
       if (
